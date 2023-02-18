@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="style.css" />
+		<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+			rel="stylesheet"
+		/>
+		<title>Library</title>
+	</head>
+	<body>
+		<header>
+			<h1 class="heading">Library</h1>
+			<button class="add-book">Add Book</button>
+		</header>
+		<main>
+			<ul class="library-books"></ul>
+			<div class="hidden">
+				<span class="material-icons modal-exit"> close </span>
+				<h2 class="new-book-modal-heading">New Book</h2>
+				<form action="#" class="new-book-form" name="new-book-form">
+					<div class="form-element">
+						<label class="form-label" for="new-book-title"
+							>Title:</label
+						>
+						<input
+							class="form-input"
+							type="text"
+							id="new-book-title"
+							name="new-book-title"
+						/>
+					</div>
+					<div class="form-element">
+						<label class="form-label" for="new-book-author"
+							>Author:</label
+						>
+						<input
+							class="form-input"
+							type="text"
+							id="new-book-author"
+							name="new-book-author"
+						/>
+					</div>
+					<div class="form-element">
+						<label class="form-label" for="new-book-pages"
+							>Pages:</label
+						>
+						<input
+							class="form-input"
+							type="number"
+							id="new-book-pages"
+							name="new-book-pages"
+						/>
+					</div>
+					<div class="form-element" id="read">
+						<label class="form-label" for="new-book-read"
+							>Read?</label
+						>
+						<input
+							class="form-input"
+							type="checkbox"
+							id="new-book-read"
+							name="new-book-read"
+						/>
+					</div>
+				</form>
+				<button
+					type="submit"
+					form="new-book-form"
+					class="add-to-library"
+					onclick="addBookToLibrary()"
+				>
+					Add Book
+				</button>
+			</div>
+		</main>
+	</body>
+	<script src="main.js"></script>
+</html>

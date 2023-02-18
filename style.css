@@ -1,0 +1,91 @@
+:root {
+	box-sizing: border-box;
+	--transparentBlack: rgba(0, 0, 0, 0.24);
+	--white: white
+}
+
+body {
+	margin: 0;
+}
+
+header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1rem 2rem;
+	margin-bottom: 1rem;
+	box-shadow: var(--transparentBlack) 0px 3px 8px;
+}
+
+.add-book {
+	cursor: pointer;
+	padding: 0.5rem 1rem;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 2rem;
+}
+
+.library-books {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.book-card {
+	display: flex;
+	justify-content: space-between;
+	border: 1px solid black;
+	margin: 1rem;
+	padding: 1rem;
+}
+
+.hidden {
+	display: none;
+}
+
+.new-book-modal {
+	position: absolute;
+	top: 150px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border: solid 2px black;
+	border-radius: 1rem;
+	padding: 1rem;
+	background-color: var(--white);
+}
+
+.new-book-modal-heading {
+	margin-top: 0;
+}
+
+.modal-exit {
+	margin-left: 17rem;
+	cursor: pointer;
+}
+
+.form-input,
+.form-label {
+	margin: 0.5rem;
+}
+
+.form-element {
+	display: flex;
+	justify-content: space-between;
+}
+
+#read {
+	flex-direction: column;
+	align-items: center;
+}
+
+.add-to-library {
+	cursor: pointer;
+	margin: 0.5rem;
+}
