@@ -16,58 +16,112 @@ function Book(title, author, pages, read) {
 	this.title = title;
 	this.author = author;
 	this.pages = pages;
-	this.read = read;
 }
 
-//const theHobbit = new Book('The Hobbit', 'JRR Tolkien', 500, '')
+const myLibrary = JSON.parse(localStorage.getItem('myLibrary')) || [];
 
-let myLibrary = [];
+const libraryBooks = document.querySelector('.library-books');
 
 function displayLibrary() {
-	myLibrary.forEach(item => {
-			const libraryBooks = document.querySelector('.library-books');
-			const bookCard = document.createElement('li');
-			const bookTitle = document.createElement('p');
-			const bookAuthor = document.createElement('p');
-			const bookPages = document.createElement('p');
-			const bookRead = document.createElement('INPUT').setAttribute('type', 'checkbox');
-			//const bookRemove = document.createElement('button');
-		
-			bookCard.classList.add('book-card');
-			bookCard.setAttribute('id', myLibrary.indexOf(item));
-		
-			bookTitle.textContent = item.title;
-			bookCard.appendChild(bookTitle);
-		
-			bookAuthor.textContent = item.author;
-			bookCard.appendChild(bookAuthor);
-		
-			bookPages.textContent = item.pages;
-			bookCard.appendChild(bookPages);
+	myLibrary.forEach((item, i) => {
+		const bookCard = document.createElement('li');
+		bookCard.classList.add('book-card');
+		bookCard.setAttribute('data-index', `${i}`);
 
-		if(document.querySelector('#new-book-read').value === true) {
-			bookRead.checked = true;
-		} else {
-			bookRead.checked = false;
-		}
-			bookCard.appendChild(bookRead);
+		const bookTitle = document.createElement('p');
+		bookTitle.textContent = `Title: ${item.title}`;
 		
-			libraryBooks.appendChild(bookCard);
+		const bookAuthor = document.createElement('p');
+		bookAuthor.textContent = `Author: ${item.author}`;
+		
+		const bookPages = document.createElement('p');
+		bookPages.textContent = `Pages: ${item.pages}`;
+		
+		const bookRead = document.createElement('div');
+		bookRead.setAttribute('id', 'new-book-read');
+		const readTitle = document.createTextNode('Read?');
+		bookRead.appendChild(readTitle);
+		const bookReadSelect = document.createElement('select');
+		bookRead.appendChild(bookReadSelect);
+		bookReadSelect.style.marginLeft = '1rem';
+		const readYes = document.createElement('option');
+		readYes.value = 'Yes';
+		readYes.text = 'Yes';
+		const readNo = document.createElement('option');
+		readNo.value = 'No';
+		readNo.text = 'No';
+		bookReadSelect.add(readYes, null);
+		bookReadSelect.add(readNo, null);
+
+		const bookRemove = document.createElement('button');
+		bookRemove.setAttribute('id', 'delete');	
+		bookRemove.textContent = 'Delete';
+		bookRemove.addEventListener('click', () => {
+			libraryBooks.removeChild(bookCard)
+			myLibrary.splice(bookCard, 1);
+		})
+		
+		bookCard.appendChild(bookTitle);
+		bookCard.appendChild(bookAuthor);
+		bookCard.appendChild(bookPages);
+		bookCard.appendChild(bookRead);
+		bookCard.appendChild(bookRemove);
+		libraryBooks.appendChild(bookCard);
 		}
-	);
+		);
+		saveData();
 }
 
-window.onload = displayLibrary()
+function addBookToLibrary(i) {
+	const bookCard = document.createElement('div');
+	bookCard.classList.add('book-card');
+	bookCard.setAttribute('data-index', `${i}`);
 
-function addBookToLibrary() {
-	let newBook = new Book(
-		document.querySelector('#new-book-title').value,
-		document.querySelector('#new-book-author').value,
-		document.querySelector('#new-book-pages').value,
-		document.querySelector('#new-book-read').value
-	);
+	const title = document.querySelector('#new-book-title').value
+	const bookTitle = document.createElement('p');
+	bookTitle.textContent = `Title: ${title}`;
+
+	const author = document.querySelector('#new-book-author').value
+	const bookAuthor = document.createElement('p');
+	bookAuthor.textContent = `Author: ${author}`;
+
+	const pages = document.querySelector('#new-book-pages').value; 
+	const bookPages = document.createElement('p');
+	bookPages.textContent = `Pages: ${pages}`;
+
+	const bookRead = document.createElement('div');
+	bookRead.setAttribute('id', 'new-book-read');
+	const readTitle = document.createTextNode('Read?');
+	bookRead.appendChild(readTitle);
+	const bookReadSelect = document.createElement('select');
+	bookRead.appendChild(bookReadSelect);
+	bookReadSelect.style.marginLeft = '1rem';
+	const readYes = document.createElement('option');
+	readYes.value = 'Yes';
+	readYes.text = 'Yes';
+	const readNo = document.createElement('option');
+	readNo.value = 'No';
+	readNo.text = 'No';
+	bookReadSelect.add(readYes, null);
+	bookReadSelect.add(readNo, null);
+	
+	const bookRemove = document.createElement('button');
+	bookRemove.setAttribute('id', 'delete');
+	bookRemove.textContent = 'Delete';
+	bookRemove.addEventListener('click', () => {
+		libraryBooks.removeChild(bookCard)
+		myLibrary.splice(bookCard, 1);
+	})
+
+	const newBook = new Book(title, author, pages);
 	myLibrary.push(newBook);
 	saveData();
+	bookCard.appendChild(bookTitle);
+	bookCard.appendChild(bookAuthor);
+	bookCard.appendChild(bookPages);
+	bookCard.appendChild(bookRead);
+	bookCard.appendChild(bookRemove);
+	libraryBooks.appendChild(bookCard);
 	addBookModal.classList.add('hidden');
 	addBookModal.classList.remove('new-book-modal');
 	document.querySelector('.new-book-form').reset();
@@ -79,7 +133,3 @@ addToLibrary.addEventListener('click', addBookToLibrary());
 function saveData() {
 	localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
 }
-
-//function loadData() {}
-
-console.log(myLibrary);
